@@ -8,5 +8,6 @@ The software installation & implementation procedures assume:
 In your Home directory, create a folder called: object-detection
 
 Follow the installation & implementation procedures in chronological sequence:
-1. Ravens-ImageDetection-SoftwareInstallation.txt
-2. Ravens-ImageDetection-SoftwareImplementation.txt
+1. Ravens-ImageDetection-SoftwareInstallation
+2. Ravens-ImageDetection-SoftwareImplementation
+Both procedures can be obtained from the GitHub repository
