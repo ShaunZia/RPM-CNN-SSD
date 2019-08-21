@@ -1,0 +1,59 @@
+STEP 1 -
+Install Python dependencies (in command line - Ubuntu 16.04 or higher):
+sudo pip install pillow
+sudo pip install lxml
+sudo pip install jupyter
+sudo pip install matplotlib
+
+STEP 2 -
+Download models folder from GitHub (in command line):
+git clone https://github.com/tensorflow/models.git
+
+STEP 3 -
+Installation of Protocol Buffer (install latest protocol buffer):
+Navigate to https://github.com/protocolbuffers/protobuf/releases and click protoc-3.5.2-linux-x86_64.zip
+Extract the contents of the Protoc zip folder:
+sudo ./configure
+sudo make check
+sudo make install
+
+STEP 4 -
+Download LabelImg annotation editor (in command line):
+git clone https://github.com/tzutalin/labelImg
+
+STEP 5 -
+Install labelImg.py for Python3 + Qt5 (follow tutorial under Help menu):
+sudo apt-get install pyqt5-dev-tools
+sudo pip3 install lxml
+cd labelImg
+make qt5py3
+python3 labelImg.py
+(Refer to GitHub repository for annotated Raven's test & train images in 'images' folder)
+
+STEP 6 -
+Create xml_to_csv.py file:
+(Refer to GitHub repository)
+
+STEP 7 -
+Create generate_tfrecord.py file:
+(Refer to GitHub repository)
+
+STEP 8 -
+Install the object_detection library:
+# From models/research/
+sudo python3 setup.py install
+(Refer to Ravens-ImageDetection-SoftwareImplementation document)
+
+STEP 9 -
+Create ssd_mobilenet_v1_pets.config file:
+(Refer to 'training' folder in GitHub repository)
+
+STEP 10 -
+Download ssd_mobilenet_v1_coco_11_06_2017 folder (in command line):
+wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_11_06_2017.tar.gz
+Extract to 'object-detection' folder
+(Refer to Ravens-ImageDetection-SoftwareImplementation document)
+
+STEP 11 -
+Create object_detection.pbtxt file:
+(Refer to 'training' folder in GitHub repository & Ravens-ImageDetection-SoftwareImplementation document)
