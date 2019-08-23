@@ -1,0 +1,78 @@
+STEP 1 -
+Compile Protobuf libraries (in command line - Ubuntu 16.04 or higher):
+# From models/research/
+protoc object_detection/protos/*.proto --python_out=.
+
+STEP 2 -
+Append libraries to PYTHONPATH:
+# From models/research/
+export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+
+STEP 3 -
+Test the TensorFlow installation:
+# From models/research/
+python3 object_detection/builders/model_builder_test.py
+
+STEP 4 -
+Install the object_detection library:
+# From models/research/
+python3 setup.py install
+
+STEP 5 -
+Store xml-to-csv train/test split in data directory:
+# From object-detection/
+python3 xml_to_csv.py
+
+STEP 6 -
+Generate TensorFlow train record:
+# From object-detection/
+python3 generate_tfrecord.py --csv_input=data/train_labels.csv --output_path=data/train.record
+
+STEP 7 -
+Generate TensorFlow test record:
+# From object-detection/
+python3 generate_tfrecord.py --csv_input=data/test_labels.csv --output_path=data/test.record
+
+STEP 8 -
+Copy SSD Mobilenet pre-trained configuration model to object-detection training folder:
+# To object-detection/training/ssd_mobilenet_v1_pets.config
+
+STEP 9 -
+Copy SSD Mobilenet checkpoint folder to object-detection folder:
+# To object-detection/ssd_mobilenet_v1_coco_11_06_2017
+
+STEP 10 -
+Copy Protocol Buffer text file to object-detection training folder:
+# To object-detection/training/object-detection.pbtxt
+
+STEP 11 -
+Copy data, images, checkpoint, and training folders into the models object_detection folder:
+# To models/research/object_detection/data
+# To models/research/object_detection/images
+# To models/research/object_detection/ssd_mobilenet_v1_coco_11_06_2017
+# To models/research/object_detection/training
+
+STEP 12 -
+Train the Raven's Matrix custom object detection algorithm:
+# From models/research/object_detection
+python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v1_pets.config
+
+STEP 13 -
+Export the inference graph onto PC (subject to change depending on the number of steps defined in ssd_mobilenet_v1_pets.config):
+# From models/research/object_detection
+python3 export_inference_graph.py \
+    --input_type image_tensor \
+    --pipeline_config_path training/ssd_mobilenet_v1_pets.config \
+    --trained_checkpoint_prefix training/model.ckpt-50000 \
+    --output_directory ravens_inference_graph
+
+STEP 14 -
+Launch Jupyter Notebook (refer to GitHub repository):
+# From models/research/object_detection
+jupyter notebook
+(Upload Ravens-ImageDetection-JupyterOutput.ipynb from GitHub repository into Jupyter Notebook)
+
+STEP 15 -
+Monitor training with TensorBoard on PC:
+# From models/research/object_detection
+tensorboard --logdir='training'
